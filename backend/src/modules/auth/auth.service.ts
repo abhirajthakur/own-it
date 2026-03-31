@@ -5,16 +5,9 @@ import { AppError } from "../../middleware/error.middleware.js";
 import { hashPassword, verifyPassword } from "../../utils/hash.js";
 import { generateAccessToken } from "../../utils/jwt.js";
 
-import type {
-  LoginInput,
-  LoginResponse,
-  RegisterInput,
-  RegisterResponse,
-} from "./auth.types.js";
+import type { LoginInput, RegisterInput } from "./auth.types.js";
 
-export async function register(
-  input: RegisterInput,
-): Promise<RegisterResponse> {
+export async function register(input: RegisterInput) {
   const existing = await db
     .select({ id: users.id })
     .from(users)
@@ -42,7 +35,7 @@ export async function register(
   return { user: userWithoutPassword, token };
 }
 
-export async function login(input: LoginInput): Promise<LoginResponse> {
+export async function login(input: LoginInput) {
   const [user] = await db
     .select()
     .from(users)
