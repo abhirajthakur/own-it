@@ -1,10 +1,9 @@
 import app from "./app.js";
-import { server } from "./config/index.js";
+import { env } from "./config/env.js";
 import { logger } from "./utils/logger.js";
 
-app.listen(server.port, () => {
-  logger.info(
-    { env: server.env, port: server.port },
-    `Server running on port ${server.port}`,
-  );
+const port = env.PORT;
+
+app.listen(port, () => {
+  logger.info({ env: env.NODE_ENV, port }, `Server running on port ${port}`);
 });

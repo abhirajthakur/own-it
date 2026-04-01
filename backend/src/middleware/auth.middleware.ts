@@ -9,14 +9,24 @@ export const authMiddleware = (
   _res: Response,
   next: NextFunction,
 ) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    throw new AppError("No authorization header provided", 401);
+  }
+
+  if (!authHeader?.startsWith("Bearer ")) {
+    throw new AppError("Token must start with `Bearer `", 401);
+  }
+
+  const token = authHeader.split(" ")[1];
   if (!token) {
     throw new AppError("No token provided", 401);
   }
 
   try {
     const payload = verifyAuthToken(token) as JwtPayload;
-    req.userId = payload["userId"];
+    req.userId = payload.userId;
     next();
   } catch {
     next();
