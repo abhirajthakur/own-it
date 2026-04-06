@@ -1,10 +1,10 @@
 import { verifyAuthToken } from "../utils/jwt.js";
-import { AppError } from "./error.middleware.js";
+import { AppError } from "./errorHandler.js";
 
 import type { NextFunction, Request, Response } from "express";
 import type { JwtPayload } from "jsonwebtoken";
 
-export const authMiddleware = (
+export const authenticate = (
   req: Request,
   _res: Response,
   next: NextFunction,

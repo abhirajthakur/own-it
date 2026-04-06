@@ -1,10 +1,10 @@
 import cors from "cors";
 import express from "express";
 import { env } from "./config/env.js";
-import { errorMiddleware } from "./middleware/error.middleware.js";
-import { requestLogger } from "./middleware/logger.middleware.js";
 import authRouter from "./modules/auth/auth.routes.js";
 import goalsRouter from "./modules/goals/goals.routes.js";
+import { requestLogger } from "./middleware/logger.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app: express.Application = express();
 
@@ -26,10 +26,11 @@ app.get("/health", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/goals", goalsRouter);
 
+// Global route not found handler
 app.use((_req, res) => {
   res.status(404).json({ error: "Route not found." });
 });
 
-app.use(errorMiddleware);
+app.use(errorHandler);
 
 export default app;

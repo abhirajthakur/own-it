@@ -1,7 +1,7 @@
 import * as authService from "./auth.service.js";
-import { loginSchema, registerSchema } from "./auth.types.js";
 
 import type { NextFunction, Request, Response } from "express";
+import type { LoginInput, RegisterInput } from "./auth.types.js";
 
 export async function registerHandler(
   req: Request,
@@ -9,8 +9,7 @@ export async function registerHandler(
   next: NextFunction,
 ) {
   try {
-    const input = registerSchema.parse(req.body);
-    const result = await authService.register(input);
+    const result = await authService.register(req.body as RegisterInput);
     res.status(201).json({ data: result });
   } catch (err) {
     next(err);
@@ -23,8 +22,7 @@ export async function loginHandler(
   next: NextFunction,
 ) {
   try {
-    const input = loginSchema.parse(req.body);
-    const result = await authService.login(input);
+    const result = await authService.login(req.body as LoginInput);
     res.status(200).json({ data: result });
   } catch (err) {
     next(err);
