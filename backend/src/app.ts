@@ -3,6 +3,7 @@ import express from "express";
 import { env } from "./config/env.js";
 import authRouter from "./modules/auth/auth.routes.js";
 import goalsRouter from "./modules/goals/goals.routes.js";
+import checkinsRouter from "./modules/checkins/checkin.routes.js";
 import { requestLogger } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
@@ -25,6 +26,7 @@ app.get("/health", (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/goals", goalsRouter);
+app.use("/api/checkins", checkinsRouter);
 
 // Global route not found handler
 app.use((_req, res) => {

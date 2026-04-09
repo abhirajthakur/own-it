@@ -1,7 +1,7 @@
 import { and, eq, isNull } from "drizzle-orm";
 import { db } from "../../db/index.js";
 import { goals } from "../../db/schema.js";
-import { AppError } from "../../middleware/error.middleware.js";
+import { AppError } from "../../middleware/errorHandler.js";
 
 import type { CreateGoalInput, UpdateGoalInput } from "./goals.types.js";
 

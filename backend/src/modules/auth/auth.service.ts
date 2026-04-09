@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
 import { users } from "../../db/schema.js";
-import { AppError } from "../../middleware/error.middleware.js";
+import { AppError } from "../../middleware/errorHandler.js";
 import { hashPassword, verifyPassword } from "../../utils/hash.js";
 import { generateAccessToken } from "../../utils/jwt.js";
 

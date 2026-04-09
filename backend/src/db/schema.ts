@@ -44,3 +44,22 @@ export const goals = pgTable(
   },
   (t) => [index("goals_user_id_idx").on(t.userId)],
 );
+
+export const checkins = pgTable(
+  "checkins",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    goalId: uuid("goal_id")
+      .notNull()
+      .references(() => goals.id, { onDelete: "cascade" }),
+    date: timestamp("date", { withTimezone: true }).notNull(),
+    status: checkinStatus("status").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index("checkins_goal_id_idx").on(t.goalId),
+    index("idx_checkins_date").on(t.date),
+  ],
+);
